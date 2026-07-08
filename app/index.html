@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAVU-OOE App Drawer</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --primary-color: #0366d6;
+            --danger-color: #cb2431;
+            --edit-color: #28a745;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .app-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .app-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .app-info {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e1e4e8;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .app-title {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: #24292e;
+        }
+
+        .app-desc {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            color: #586069;
+            line-height: 1.4;
+        }
+
+        .app-actions {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #f1f1f1;
+            padding-top: 12px;
+            margin-top: auto;
+        }
+
+        .btn-action {
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-edit { background-color: var(--edit-color); }
+        .btn-delete { background-color: var(--danger-color); }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LAVU-OOE App Drawer</h1>
+        <button class="btn" onclick="openModal('add')">+ App hinzufügen</button>
+    </header>
+
+    <main class="app-grid" id="appGrid">
+        </main>
+
+    <div class="modal" id="appModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">App hinzufügen</h2>
+            <form id="appForm" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="appIndex">
+                
+                <div class="form-group">
+                    <label for="appName">Name der App</label>
+                    <input type="text" id="appName" required placeholder="z.B. Etiketten-Druckstudio">
+                </div>
+
+                <div class="form-group">
+                    <label for="appUrl">App URL (Live Version)</label>
+                    <input type="url" id="appUrl" required placeholder="https://lavu-ooe.github.io/...">
+                </div>
+
+                <div class="form-group">
+                    <label for="appDesc">Beschreibung</label>
+                    <textarea id="appDesc" rows="3" placeholder="Kurze Beschreibung der App..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="appIcon">Emoji Icon</label>
+                    <input type="text" id="appIcon" placeholder="z.B. 🏷️ oder 📱" maxLength="2">
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-cancel" onclick="closeModal()">Abbrechen</button>
+                    <button type="submit" class="btn" id="submitBtn">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initial seed data if localStorage is empty
+        const defaultApps = [
+            {
+                name: "Etiketten-Druckstudio",
+                url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
+                desc: "Studio zum Erstellen und Drucken von Etiketten für das LAVU-OOE Netzwerk.",
+                icon: "🏷️"
+            }
+        ];
+
+        // Load apps from LocalStorage or use default
+        let apps = JSON.parse(localStorage.getItem('lavu_apps')) || defaultApps;
+
+        function saveApps() {
+            localStorage.setItem('lavu_apps', JSON.stringify(apps));
+            renderApps();
+        }
+
+        function renderApps() {
+            const grid = document.getElementById('appGrid');
+            grid.innerHTML = '';
+
+            apps.forEach((app, index) => {
+                const card = document.createElement('div');
+                card.className = 'app-card';
+                
+                card.innerHTML = `
+                    <a href="${app.url}" target="_blank" class="app-info">
+                        <div class="app-icon">${app.icon || '🚀'}</div>
+                        <h3 class="app-title">${escapeHTML(app.name)}</h3>
+                        <p class="app-desc">${escapeHTML(app.desc || 'Keine Beschreibung verfügbar.')}</p>
+                    </a>
+                    <div class="app-actions">
+                        <button class="btn-action btn-edit" onclick="openModal('edit', ${index})">Bearbeiten</button>
+                        <button class="btn-action btn-delete" onclick="deleteApp(${index})">Löschen</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(mode, index = null) {
+            const modal = document.getElementById('appModal');
+            const title = document.getElementById('modalTitle');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            document.getElementById('appForm').reset();
+            document.getElementById('appIndex').value = index !== null ? index : '';
+
+            if (mode === 'edit') {
+                title.innerText = 'App bearbeiten';
+                submitBtn.innerText = 'Änderungen speichern';
+                
+                const app = apps[index];
+                document.getElementById('appName').value = app.name;
+                document.getElementById('appUrl').value = app.url;
+                document.getElementById('appDesc').value = app.desc;
+                document.getElementById('appIcon').value = app.icon;
+            } else {
+                title.innerText = 'App hinzufügen';
+                submitBtn.innerText = 'Hinzufügen';
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('appModal').style.display = 'none';
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const index = document.getElementById('appIndex').value;
+            const appData = {
+                name: document.getElementById('appName').value,
+                url: document.getElementById('appUrl').value,
+                desc: document.getElementById('appDesc').value,
+                icon: document.getElementById('appIcon').value || '🚀'
+            };
+
+            if (index !== '') {
+                // Edit mode
+                apps[index] = appData;
+            } else {
+                // Add mode
+                apps.push(appData);
+            }
+
+            saveApps();
+            closeModal();
+        }
+
+        function deleteApp(index) {
+            if (confirm(`Möchtest du "${apps[index].name}" wirklich löschen?`)) {
+                apps.splice(index, 1);
+                saveApps();
+            }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        // Initial render on page load
+        renderApps();
+    </script>
+</body>
+</html>
