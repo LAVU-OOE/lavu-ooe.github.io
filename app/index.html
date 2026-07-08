@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAVU-OOE App Drawer</title>
     <style>
         :root {
-            --bg-color: #f4f6f9;
+            --bg-color: #f6f8fa;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --primary-color: #0366d6;
-            --primary-hover: #0256b4;
-            --danger-color: #cb2431;
-            --edit-color: #28a745;
+            --text-color: #24292e;
+            --primary-color: #0066d6;
+            --primary-hover: #0052ad;
+            --accent-green: #2ea44f;
+            --accent-green-hover: #2c974b;
+            --danger-color: #cf222e;
+            --muted-text: #57606a;
+            --border-color: #d0d7de;
         }
 
         body {
@@ -20,16 +23,15 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 0 0 40px 0; /* Changed to accommodate full-width header */
+            padding: 0 0 50px 0;
         }
 
-        /* --- STYLISH NEW HEADER BLOCK --- */
         header {
-            background: linear-gradient(135deg, #ffffff 0%, #fdfdfd 100%);
-            border-bottom: 1px solid #e1e4e8;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            padding: 24px 20px;
-            margin-bottom: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #f3f7fa 100%);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            padding: 30px 20px;
+            margin-bottom: 30px;
         }
 
         .header-container {
@@ -39,30 +41,84 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .header-brand h1 {
             margin: 0;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            background: linear-gradient(120deg, #1a1a1a, var(--primary-color));
+            background: linear-gradient(120deg, #1f2328, var(--primary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .header-brand p {
-            margin: 4px 0 0 0;
+            margin: 6px 0 12px 0;
+            font-size: 14px;
+            color: var(--muted-text);
+            font-weight: 400;
+        }
+
+        .lavu-pillars {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pillar-badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+        .pillar-nachhaltig { background-color: #dafbe1; color: #1a7f37; }
+        .pillar-innovativ { background-color: #ddf4ff; color: #0969da; }
+        .pillar-kommunal { background-color: #fff8c5; color: #9a6700; }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* --- LANGUAGE SWITCHER ELEMENT --- */
+        .lang-switcher {
+            display: inline-flex;
+            background-color: #eaeef2;
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 12px;
             font-size: 13px;
-            color: #6a737d;
+            font-weight: 600;
+            color: var(--muted-text);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .lang-btn.active {
+            background-color: white;
+            color: var(--text-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
         .btn-add-app {
-            background-color: var(--primary-color);
+            background-color: var(--accent-green);
             color: white;
             border: none;
-            padding: 12px 22px;
+            padding: 12px 24px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -70,45 +126,100 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 10px rgba(3, 102, 214, 0.2);
+            box-shadow: 0 4px 12px rgba(46, 164, 79, 0.2);
             transition: all 0.2s ease;
         }
 
         .btn-add-app:hover {
-            background-color: var(--primary-hover);
+            background-color: var(--accent-green-hover);
             transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(3, 102, 214, 0.28);
+            box-shadow: 0 6px 16px rgba(46, 164, 79, 0.3);
         }
 
         .btn-add-app:active {
             transform: translateY(1px);
         }
-        /* -------------------------------- */
+
+        .lavu-dashboard-stats {
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .stat-icon {
+            font-size: 26px;
+            background: #f0f3f6;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-info .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2328;
+            margin: 0;
+        }
+
+        .stat-info .stat-label {
+            font-size: 12px;
+            color: var(--muted-text);
+            margin: 2px 0 0 0;
+        }
+
+        .section-title {
+            max-width: 1200px;
+            margin: 0 auto 15px auto;
+            padding: 0 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted-text);
+            font-weight: 700;
+        }
 
         .app-grid {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
 
         .app-card {
             background: var(--card-bg);
-            border: 1px solid #e1e4e8;
-            border-radius: 8px;
-            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.22s ease;
         }
 
         .app-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            border-color: #8c959f;
         }
 
         .app-info {
@@ -117,50 +228,63 @@
         }
 
         .app-icon {
-            width: 50px;
-            height: 50px;
-            background-color: #e1e4e8;
-            border-radius: 12px;
+            width: 54px;
+            height: 54px;
+            background-color: #f0f3f6;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 26px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .app-title {
             margin: 0 0 8px 0;
             font-size: 18px;
-            color: #24292e;
+            font-weight: 600;
+            color: #1f2328;
         }
 
         .app-desc {
-            margin: 0 0 15px 0;
+            margin: 0 0 20px 0;
             font-size: 14px;
-            color: #586069;
-            line-height: 1.4;
+            color: var(--muted-text);
+            line-height: 1.5;
         }
 
         .app-actions {
             display: flex;
             gap: 10px;
-            border-top: 1px solid #f1f1f1;
-            padding-top: 12px;
+            border-top: 1px solid #eff1f3;
+            padding-top: 15px;
             margin-top: auto;
         }
 
         .btn-action {
-            padding: 5px 10px;
-            font-size: 12px;
-            border-radius: 4px;
-            border: none;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
             cursor: pointer;
-            color: white;
+            background-color: #f6f8fa;
+            color: #24292e;
+            transition: all 0.15s ease;
             flex: 1;
         }
 
-        .btn-edit { background-color: var(--edit-color); }
-        .btn-delete { background-color: var(--danger-color); }
+        .btn-edit:hover {
+            background-color: #eaeef2;
+            border-color: #8c959f;
+        }
+
+        .btn-delete:hover {
+            background-color: #ffebe9;
+            color: var(--danger-color);
+            border-color: rgba(207, 34, 46, 0.3);
+        }
 
         .modal {
             display: none;
@@ -169,7 +293,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -177,65 +302,81 @@
 
         .modal-content {
             background-color: white;
-            padding: 25px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 12px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            max-width: 420px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border: 1px solid var(--border-color);
         }
 
         .modal h2 {
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
             box-sizing: border-box;
+            background-color: #f6f8fa;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            background-color: white;
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 102, 214, 0.15);
         }
 
         .modal-buttons {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .btn-cancel {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 15px;
+            background-color: #f6f8fa;
+            color: #24292e;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
         }
+
+        .btn-cancel:hover { background-color: #eaeef2; }
         
         .btn-submit {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 18px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
         }
+
+        .btn-submit:hover { background-color: var(--primary-hover); }
     </style>
 </head>
 <body>
@@ -243,64 +384,200 @@
     <header>
         <div class="header-container">
             <div class="header-brand">
-                <h1>LAVU-OOE App Drawer</h1>
-                <p>Zentrale App-Verwaltung und Schnellzugriff</p>
+                <h1>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--primary-color);"><path d="M4 4h16v3H4V4zm0 6h7v10H4V10zm9 0h7v4h-7v-4zm0 6h7v4h-7v-4z" fill="currentColor"/></svg>
+                    LAVU-OOE App Drawer
+                </h1>
+                <p id="txtSubheading">Central software infrastructure & digital logistics tools</p>
+                <div class="lavu-pillars">
+                    <span class="pillar-badge pillar-nachhaltig" id="badgeP1">Sustainable</span>
+                    <span class="pillar-badge pillar-innovativ" id="badgeP2">Innovative</span>
+                    <span class="pillar-badge pillar-kommunal" id="badgeP3">Municipal</span>
+                </div>
             </div>
-            <button class="btn-add-app" onclick="openModal('add')">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="stroke: currentColor; stroke-width: 2; stroke-linecap: round;"><path d="M8 3v10M3 8h10"/></svg>
-                App hinzufügen
-            </button>
+            
+            <div class="header-actions">
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btnLangEn" onclick="switchLanguage('en')">EN</button>
+                    <button class="lang-btn" id="btnLangDe" onclick="switchLanguage('de')">DE</button>
+                </div>
+                
+                <button class="btn-add-app" id="btnAddApp" onclick="openModal('add')">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="stroke: currentColor; stroke-width: 2.5; stroke-linecap: round;"><path d="M8 3v10M3 8h10"/></svg>
+                    <span>Add App</span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <section class="lavu-dashboard-stats">
+        <div class="stat-card">
+            <div class="stat-icon">🌱</div>
+            <div class="stat-info">
+                <p class="stat-value">179</p>
+                <p class="stat-label" id="lblStatAsz">Recycling Centers (ASZ)</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🚛</div>
+            <div class="stat-info">
+                <p class="stat-value">> 300k t</p>
+                <p class="stat-label" id="lblStatRec">Waste materials collected annually</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <p class="stat-value">700+</p>
+                <p class="stat-label" id="lblStatStaff">Dedicated team members</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-info">
+                <p class="stat-value">100%</p>
+                <p class="stat-label" id="lblStatCirc">Circular Economy Upper Austria</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-title" id="txtGridTitle">Integrated Applications</div>
 
     <main class="app-grid" id="appGrid">
     </main>
 
     <div class="modal" id="appModal">
         <div class="modal-content">
-            <h2 id="modalTitle">App hinzufügen</h2>
+            <h2 id="modalTitle">Add App</h2>
             <form id="appForm" onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="appIndex">
                 
                 <div class="form-group">
-                    <label for="appName">Name der App</label>
-                    <input type="text" id="appName" required placeholder="z.B. Etiketten-Druckstudio">
+                    <label for="appName" id="lblAppName">App Name</label>
+                    <input type="text" id="appName" required placeholder="e.g. Label Printing Studio">
                 </div>
 
                 <div class="form-group">
-                    <label for="appUrl">App URL (Live Version)</label>
+                    <label for="appUrl" id="lblAppUrl">App URL (Live Version)</label>
                     <input type="url" id="appUrl" required placeholder="https://lavu-ooe.github.io/...">
                 </div>
 
                 <div class="form-group">
-                    <label for="appDesc">Beschreibung</label>
-                    <textarea id="appDesc" rows="3" placeholder="Kurze Beschreibung der App..."></textarea>
+                    <label for="appDesc" id="lblAppDesc">Description</label>
+                    <textarea id="appDesc" rows="3" placeholder="Short description of the app..."></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="appIcon">Emoji Icon</label>
-                    <input type="text" id="appIcon" placeholder="z.B. 🏷️ oder 📱" maxLength="2">
+                    <label for="appIcon" id="lblAppIcon">Emoji Icon</label>
+                    <input type="text" id="appIcon" placeholder="e.g. 🏷️ or 📱" maxLength="2">
                 </div>
 
                 <div class="modal-buttons">
-                    <button type="button" class="btn-cancel" onclick="closeModal()">Abbrechen</button>
-                    <button type="submit" class="btn-submit" id="submitBtn">Speichern</button>
+                    <button type="button" class="btn-cancel" id="btnCancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-submit" id="submitBtn">Save</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+        // Dictionary configuration for languages
+        const translations = {
+            en: {
+                subheading: "Central software infrastructure & digital logistics tools",
+                p1: "Sustainable", p2: "Innovative", p3: "Municipal",
+                addApp: "Add App",
+                statAsz: "Recycling Centers (ASZ)",
+                statRec: "Waste materials collected annually",
+                statStaff: "Dedicated team members",
+                statCirc: "Circular Economy Upper Austria",
+                gridTitle: "Integrated Applications",
+                modalAdd: "Add App",
+                modalEdit: "Edit App",
+                lblAppName: "App Name",
+                lblAppUrl: "App URL (Live Version)",
+                lblAppDesc: "Description",
+                lblAppIcon: "Emoji Icon",
+                phName: "e.g. Label Printing Studio",
+                phDesc: "Short description of the app...",
+                btnCancel: "Cancel",
+                btnSave: "Save",
+                btnEdit: "Edit",
+                btnDelete: "Delete",
+                confirmDelete: "Are you sure you want to delete this application?",
+                noDesc: "No description available."
+            },
+            de: {
+                subheading: "Zentrale Software-Infrastruktur & digitale Logistikwerkzeuge",
+                p1: "Nachhaltig", p2: "Innovativ", p3: "Kommunal",
+                addApp: "App hinzufügen",
+                statAsz: "Altstoffsammelzentren (ASZ)",
+                statRec: "Altstoffe jährlich gesammelt",
+                statStaff: "Engagierte Mitarbeiter",
+                statCirc: "Kreislaufwirtschaft OÖ",
+                gridTitle: "Integrierte Anwendungen",
+                modalAdd: "App hinzufügen",
+                modalEdit: "App bearbeiten",
+                lblAppName: "Name der App",
+                lblAppUrl: "App URL (Live Version)",
+                lblAppDesc: "Beschreibung",
+                lblAppIcon: "Emoji Icon",
+                phName: "z.B. Etiketten-Druckstudio",
+                phDesc: "Kurze Beschreibung der App...",
+                btnCancel: "Abbrechen",
+                btnSave: "Speichern",
+                btnEdit: "Bearbeiten",
+                btnDelete: "Löschen",
+                confirmDelete: "Möchtest du diese Anwendung wirklich löschen?",
+                noDesc: "Keine Beschreibung verfügbar."
+            }
+        };
+
+        let currentLang = 'en'; // English is now default
+
         const defaultApps = [
             {
                 name: "Etiketten-Druckstudio",
                 url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
-                desc: "Studio zum Erstellen und Drucken von Etiketten für das LAVU-OOE Netzwerk.",
+                desc: "Studio for creating and printing standardized container and sorting labels for the LAVU-OOE network.",
                 icon: "🏷️"
             }
         ];
 
         let apps = JSON.parse(localStorage.getItem('lavu_apps')) || defaultApps;
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Toggle active visual states on switcher buttons
+            document.getElementById('btnLangEn').classList.toggle('active', lang === 'en');
+            document.getElementById('btnLangDe').classList.toggle('active', lang === 'de');
+            
+            // Apply text translations across DOM
+            const t = translations[lang];
+            document.getElementById('txtSubheading').innerText = t.subheading;
+            document.getElementById('badgeP1').innerText = t.p1;
+            document.getElementById('badgeP2').innerText = t.p2;
+            document.getElementById('badgeP3').innerText = t.p3;
+            document.getElementById('btnAddApp').querySelector('span').innerText = t.addApp;
+            document.getElementById('lblStatAsz').innerText = t.statAsz;
+            document.getElementById('lblStatRec').innerText = t.statRec;
+            document.getElementById('lblStatStaff').innerText = t.statStaff;
+            document.getElementById('lblStatCirc').innerText = t.statCirc;
+            document.getElementById('txtGridTitle').innerText = t.gridTitle;
+            
+            // Dynamic Form Input Labels & Placeholders
+            document.getElementById('lblAppName').innerText = t.lblAppName;
+            document.getElementById('lblAppUrl').innerText = t.lblAppUrl;
+            document.getElementById('lblAppDesc').innerText = t.lblAppDesc;
+            document.getElementById('lblAppIcon').innerText = t.lblAppIcon;
+            document.getElementById('appName').placeholder = t.phName;
+            document.getElementById('appDesc').placeholder = t.phDesc;
+            document.getElementById('btnCancel').innerText = t.btnCancel;
+            
+            renderApps();
+        }
 
         function saveApps() {
             localStorage.setItem('lavu_apps', JSON.stringify(apps));
@@ -310,6 +587,7 @@
         function renderApps() {
             const grid = document.getElementById('appGrid');
             grid.innerHTML = '';
+            const t = translations[currentLang];
 
             apps.forEach((app, index) => {
                 const card = document.createElement('div');
@@ -319,11 +597,11 @@
                     <a href="${app.url}" target="_blank" class="app-info">
                         <div class="app-icon">${app.icon || '🚀'}</div>
                         <h3 class="app-title">${escapeHTML(app.name)}</h3>
-                        <p class="app-desc">${escapeHTML(app.desc || 'Keine Beschreibung verfügbar.')}</p>
+                        <p class="app-desc">${escapeHTML(app.desc || t.noDesc)}</p>
                     </a>
                     <div class="app-actions">
-                        <button class="btn-action btn-edit" onclick="openModal('edit', ${index})">Bearbeiten</button>
-                        <button class="btn-action btn-delete" onclick="deleteApp(${index})">Löschen</button>
+                        <button class="btn-action btn-edit" onclick="openModal('edit', ${index})">${t.btnEdit}</button>
+                        <button class="btn-action btn-delete" onclick="deleteApp(${index})">${t.btnDelete}</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -334,13 +612,14 @@
             const modal = document.getElementById('appModal');
             const title = document.getElementById('modalTitle');
             const submitBtn = document.getElementById('submitBtn');
+            const t = translations[currentLang];
             
             document.getElementById('appForm').reset();
             document.getElementById('appIndex').value = index !== null ? index : '';
 
             if (mode === 'edit') {
-                title.innerText = 'App bearbeiten';
-                submitBtn.innerText = 'Änderungen speichern';
+                title.innerText = t.modalEdit;
+                submitBtn.innerText = t.btnSave;
                 
                 const app = apps[index];
                 document.getElementById('appName').value = app.name;
@@ -348,8 +627,8 @@
                 document.getElementById('appDesc').value = app.desc;
                 document.getElementById('appIcon').value = app.icon;
             } else {
-                title.innerText = 'App hinzufügen';
-                submitBtn.innerText = 'Hinzufügen';
+                title.innerText = t.modalAdd;
+                submitBtn.innerText = t.modalAdd;
             }
 
             modal.style.display = 'flex';
@@ -381,7 +660,8 @@
         }
 
         function deleteApp(index) {
-            if (confirm(`Möchtest du "${apps[index].name}" wirklich löschen?`)) {
+            const t = translations[currentLang];
+            if (confirm(`${t.confirmDelete}\n\n"${apps[index].name}"`)) {
                 apps.splice(index, 1);
                 saveApps();
             }
@@ -393,7 +673,8 @@
             );
         }
 
-        renderApps();
+        // Initialize view
+        switchLanguage('en');
     </script>
 </body>
 </html>
