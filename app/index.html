@@ -67,7 +67,7 @@
         .lavu-meta-row {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .lavu-pillars {
@@ -87,28 +87,53 @@
         .pillar-innovativ { background-color: #ddf4ff; color: #0969da; }
         .pillar-kommunal { background-color: #fff8c5; color: #9a6700; }
 
-        /* --- INFO ICON TOGGLE BUTTON --- */
+        /* --- DEUTLICH ERKENNBARERES INFO-BUTTON DESIGN --- */
         .btn-info-toggle {
-            background: transparent;
-            border: none;
-            color: var(--muted-text);
+            background: #f0f3f6;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
             cursor: pointer;
-            padding: 4px;
-            border-radius: 50%;
+            padding: 4px 12px 4px 6px;
+            border-radius: 20px;
             display: inline-flex;
             align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .btn-info-toggle .info-circle-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            font-family: "Georgia", serif;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 13px;
+            transition: transform 0.2s ease;
         }
 
         .btn-info-toggle:hover {
-            color: var(--primary-color);
             background-color: #eaeef2;
+            border-color: #8c959f;
+            transform: scale(1.02);
         }
         
         .btn-info-toggle.active {
-            color: var(--primary-color);
             background-color: #ddf4ff;
+            border-color: #54aeff;
+            color: var(--primary-hover);
+        }
+
+        .btn-info-toggle.active .info-circle-icon {
+            transform: rotate(15deg);
         }
 
         .header-actions {
@@ -174,7 +199,6 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
             
-            /* Hidden by default with smooth transition */
             max-height: 0;
             opacity: 0;
             overflow: hidden;
@@ -182,9 +206,8 @@
             margin-bottom: 0;
         }
 
-        /* Triggered via JS */
         .lavu-dashboard-stats.show {
-            max-height: 200px; /* high enough to fit content */
+            max-height: 200px;
             opacity: 1;
             margin-bottom: 35px;
         }
@@ -436,9 +459,9 @@
                         <span class="pillar-badge pillar-kommunal" id="badgeP3">Municipal</span>
                     </div>
                     
-                    <!-- Fine Info Icon Trigger Button -->
-                    <button class="btn-info-toggle" id="btnInfoToggle" onclick="toggleStatsDashboard()" title="Show LAVU Infos">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap: "round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <button class="btn-info-toggle" id="btnInfoToggle" onclick="toggleStatsDashboard()" title="Show/Hide LAVU Infos">
+                        <span class="info-circle-icon">i</span>
+                        <span id="lblInfoBtnText">Info</span>
                     </button>
                 </div>
             </div>
@@ -457,7 +480,6 @@
         </div>
     </header>
 
-    <!-- LAVU LIVE CONTEXT METRICS (Collapsed by default) -->
     <section class="lavu-dashboard-stats" id="lavuStatsDashboard">
         <div class="stat-card">
             <div class="stat-icon">🌱</div>
@@ -553,7 +575,8 @@
                 btnDelete: "Delete",
                 confirmDelete: "Are you sure you want to delete this application?",
                 noDesc: "No description available.",
-                infoTitle: "Show / Hide LAVU Infos"
+                infoTitle: "Show/Hide LAVU Infos",
+                infoBtnText: "Info"
             },
             de: {
                 subheading: "Zentrale Software-Infrastruktur & digitale Logistikwerkzeuge",
@@ -578,7 +601,8 @@
                 btnDelete: "Löschen",
                 confirmDelete: "Möchtest du diese Anwendung wirklich löschen?",
                 noDesc: "Keine Beschreibung verfügbar.",
-                infoTitle: "LAVU Infos anzeigen / ausblenden"
+                infoTitle: "LAVU Infos anzeigen/ausblenden",
+                infoBtnText: "Info"
             }
         };
 
@@ -595,7 +619,6 @@
 
         let apps = JSON.parse(localStorage.getItem('lavu_apps')) || defaultApps;
 
-        // Toggles the collapsible stats drawer element
         function toggleStatsDashboard() {
             const statsDiv = document.getElementById('lavuStatsDashboard');
             const infoBtn = document.getElementById('btnInfoToggle');
@@ -616,6 +639,7 @@
             document.getElementById('badgeP2').innerText = t.p2;
             document.getElementById('badgeP3').innerText = t.p3;
             document.getElementById('btnInfoToggle').title = t.infoTitle;
+            document.getElementById('lblInfoBtnText').innerText = t.infoBtnText;
             document.getElementById('btnAddApp').querySelector('span').innerText = t.addApp;
             document.getElementById('lblStatAsz').innerText = t.statAsz;
             document.getElementById('lblStatRec').innerText = t.statRec;
