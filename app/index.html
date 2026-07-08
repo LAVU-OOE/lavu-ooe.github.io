@@ -10,6 +10,7 @@
             --card-bg: #ffffff;
             --text-color: #333333;
             --primary-color: #0366d6;
+            --primary-hover: #0256b4;
             --danger-color: #cb2431;
             --edit-color: #28a745;
         }
@@ -19,42 +20,75 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 0 0 40px 0; /* Changed to accommodate full-width header */
         }
 
+        /* --- STYLISH NEW HEADER BLOCK --- */
         header {
+            background: linear-gradient(135deg, #ffffff 0%, #fdfdfd 100%);
+            border-bottom: 1px solid #e1e4e8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            padding: 24px 20px;
+            margin-bottom: 40px;
+        }
+
+        .header-container {
             max-width: 1200px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #e1e4e8;
-            padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        h1 {
+        .header-brand h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #1a1a1a, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .btn {
+        .header-brand p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: #6a737d;
+        }
+
+        .btn-add-app {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 12px 22px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(3, 102, 214, 0.2);
+            transition: all 0.2s ease;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .btn-add-app:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(3, 102, 214, 0.28);
         }
+
+        .btn-add-app:active {
+            transform: translateY(1px);
+        }
+        /* -------------------------------- */
 
         .app-grid {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
@@ -128,7 +162,6 @@
         .btn-edit { background-color: var(--edit-color); }
         .btn-delete { background-color: var(--danger-color); }
 
-        /* Modal styling */
         .modal {
             display: none;
             position: fixed;
@@ -184,18 +217,44 @@
 
         .btn-cancel {
             background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>LAVU-OOE App Drawer</h1>
-        <button class="btn" onclick="openModal('add')">+ App hinzufügen</button>
+        <div class="header-container">
+            <div class="header-brand">
+                <h1>LAVU-OOE App Drawer</h1>
+                <p>Zentrale App-Verwaltung und Schnellzugriff</p>
+            </div>
+            <button class="btn-add-app" onclick="openModal('add')">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="stroke: currentColor; stroke-width: 2; stroke-linecap: round;"><path d="M8 3v10M3 8h10"/></svg>
+                App hinzufügen
+            </button>
+        </div>
     </header>
 
     <main class="app-grid" id="appGrid">
-        </main>
+    </main>
 
     <div class="modal" id="appModal">
         <div class="modal-content">
@@ -224,15 +283,14 @@
                 </div>
 
                 <div class="modal-buttons">
-                    <button type="button" class="btn btn-cancel" onclick="closeModal()">Abbrechen</button>
-                    <button type="submit" class="btn" id="submitBtn">Speichern</button>
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Abbrechen</button>
+                    <button type="submit" class="btn-submit" id="submitBtn">Speichern</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        // Initial seed data if localStorage is empty
         const defaultApps = [
             {
                 name: "Etiketten-Druckstudio",
@@ -242,7 +300,6 @@
             }
         ];
 
-        // Load apps from LocalStorage or use default
         let apps = JSON.parse(localStorage.getItem('lavu_apps')) || defaultApps;
 
         function saveApps() {
@@ -314,10 +371,8 @@
             };
 
             if (index !== '') {
-                // Edit mode
                 apps[index] = appData;
             } else {
-                // Add mode
                 apps.push(appData);
             }
 
@@ -338,7 +393,6 @@
             );
         }
 
-        // Initial render on page load
         renderApps();
     </script>
 </body>
