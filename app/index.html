@@ -31,7 +31,7 @@
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             padding: 30px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .header-container {
@@ -64,6 +64,12 @@
             font-weight: 400;
         }
 
+        .lavu-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .lavu-pillars {
             display: flex;
             gap: 8px;
@@ -81,13 +87,36 @@
         .pillar-innovativ { background-color: #ddf4ff; color: #0969da; }
         .pillar-kommunal { background-color: #fff8c5; color: #9a6700; }
 
+        /* --- INFO ICON TOGGLE BUTTON --- */
+        .btn-info-toggle {
+            background: transparent;
+            border: none;
+            color: var(--muted-text);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-info-toggle:hover {
+            color: var(--primary-color);
+            background-color: #eaeef2;
+        }
+        
+        .btn-info-toggle.active {
+            color: var(--primary-color);
+            background-color: #ddf4ff;
+        }
+
         .header-actions {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        /* --- LANGUAGE SWITCHER ELEMENT --- */
         .lang-switcher {
             display: inline-flex;
             background-color: #eaeef2;
@@ -136,17 +165,28 @@
             box-shadow: 0 6px 16px rgba(46, 164, 79, 0.3);
         }
 
-        .btn-add-app:active {
-            transform: translateY(1px);
-        }
-
+        /* --- COLLAPSIBLE STATS CONTAINER --- */
         .lavu-dashboard-stats {
             max-width: 1200px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto;
             padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
+            
+            /* Hidden by default with smooth transition */
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, margin 0.35s ease;
+            margin-bottom: 0;
+        }
+
+        /* Triggered via JS */
+        .lavu-dashboard-stats.show {
+            max-height: 200px; /* high enough to fit content */
+            opacity: 1;
+            margin-bottom: 35px;
         }
 
         .stat-card {
@@ -389,15 +429,21 @@
                     LAVU-OOE App Drawer
                 </h1>
                 <p id="txtSubheading">Central software infrastructure & digital logistics tools</p>
-                <div class="lavu-pillars">
-                    <span class="pillar-badge pillar-nachhaltig" id="badgeP1">Sustainable</span>
-                    <span class="pillar-badge pillar-innovativ" id="badgeP2">Innovative</span>
-                    <span class="pillar-badge pillar-kommunal" id="badgeP3">Municipal</span>
+                <div class="lavu-meta-row">
+                    <div class="lavu-pillars">
+                        <span class="pillar-badge pillar-nachhaltig" id="badgeP1">Sustainable</span>
+                        <span class="pillar-badge pillar-innovativ" id="badgeP2">Innovative</span>
+                        <span class="pillar-badge pillar-kommunal" id="badgeP3">Municipal</span>
+                    </div>
+                    
+                    <!-- Fine Info Icon Trigger Button -->
+                    <button class="btn-info-toggle" id="btnInfoToggle" onclick="toggleStatsDashboard()" title="Show LAVU Infos">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap: "round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </button>
                 </div>
             </div>
             
             <div class="header-actions">
-                <!-- Language Switcher -->
                 <div class="lang-switcher">
                     <button class="lang-btn active" id="btnLangEn" onclick="switchLanguage('en')">EN</button>
                     <button class="lang-btn" id="btnLangDe" onclick="switchLanguage('de')">DE</button>
@@ -411,7 +457,8 @@
         </div>
     </header>
 
-    <section class="lavu-dashboard-stats">
+    <!-- LAVU LIVE CONTEXT METRICS (Collapsed by default) -->
+    <section class="lavu-dashboard-stats" id="lavuStatsDashboard">
         <div class="stat-card">
             <div class="stat-icon">🌱</div>
             <div class="stat-info">
@@ -482,7 +529,6 @@
     </div>
 
     <script>
-        // Dictionary configuration for languages
         const translations = {
             en: {
                 subheading: "Central software infrastructure & digital logistics tools",
@@ -506,7 +552,8 @@
                 btnEdit: "Edit",
                 btnDelete: "Delete",
                 confirmDelete: "Are you sure you want to delete this application?",
-                noDesc: "No description available."
+                noDesc: "No description available.",
+                infoTitle: "Show / Hide LAVU Infos"
             },
             de: {
                 subheading: "Zentrale Software-Infrastruktur & digitale Logistikwerkzeuge",
@@ -530,11 +577,12 @@
                 btnEdit: "Bearbeiten",
                 btnDelete: "Löschen",
                 confirmDelete: "Möchtest du diese Anwendung wirklich löschen?",
-                noDesc: "Keine Beschreibung verfügbar."
+                noDesc: "Keine Beschreibung verfügbar.",
+                infoTitle: "LAVU Infos anzeigen / ausblenden"
             }
         };
 
-        let currentLang = 'en'; // English is now default
+        let currentLang = 'en';
 
         const defaultApps = [
             {
@@ -547,19 +595,27 @@
 
         let apps = JSON.parse(localStorage.getItem('lavu_apps')) || defaultApps;
 
+        // Toggles the collapsible stats drawer element
+        function toggleStatsDashboard() {
+            const statsDiv = document.getElementById('lavuStatsDashboard');
+            const infoBtn = document.getElementById('btnInfoToggle');
+            
+            statsDiv.classList.toggle('show');
+            infoBtn.classList.toggle('active');
+        }
+
         function switchLanguage(lang) {
             currentLang = lang;
             
-            // Toggle active visual states on switcher buttons
             document.getElementById('btnLangEn').classList.toggle('active', lang === 'en');
             document.getElementById('btnLangDe').classList.toggle('active', lang === 'de');
             
-            // Apply text translations across DOM
             const t = translations[lang];
             document.getElementById('txtSubheading').innerText = t.subheading;
             document.getElementById('badgeP1').innerText = t.p1;
             document.getElementById('badgeP2').innerText = t.p2;
             document.getElementById('badgeP3').innerText = t.p3;
+            document.getElementById('btnInfoToggle').title = t.infoTitle;
             document.getElementById('btnAddApp').querySelector('span').innerText = t.addApp;
             document.getElementById('lblStatAsz').innerText = t.statAsz;
             document.getElementById('lblStatRec').innerText = t.statRec;
@@ -567,7 +623,6 @@
             document.getElementById('lblStatCirc').innerText = t.statCirc;
             document.getElementById('txtGridTitle').innerText = t.gridTitle;
             
-            // Dynamic Form Input Labels & Placeholders
             document.getElementById('lblAppName').innerText = t.lblAppName;
             document.getElementById('lblAppUrl').innerText = t.lblAppUrl;
             document.getElementById('lblAppDesc').innerText = t.lblAppDesc;
@@ -673,7 +728,6 @@
             );
         }
 
-        // Initialize view
         switchLanguage('en');
     </script>
 </body>
