@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Hintergrund-Kreis (Passend zu deinem App-Header-Theme) -->
+  <circle cx="16" cy="16" r="14" fill="#1a4b60" />
+  
+  <!-- Stilisiertes Etikett / Druckerpapier -->
+  <path d="M10 9h12v11H10z" fill="#ffffff" rx="1" />
+  
+  <!-- Gedruckte Linien / Barcode-Andeutung auf dem Etikett -->
+  <line x1="12" y1="12" x2="20" y2="12" stroke="#54a0cc" stroke-width="2" stroke-linecap="round" />
+  <line x1="12" y1="16" x2="18" y2="16" stroke="#54a0cc" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Auslaufendes Papier / Druckschlitz -->
+  <path d="M8 22h16v2H8z" fill="#6cb4db" />
+</svg>
