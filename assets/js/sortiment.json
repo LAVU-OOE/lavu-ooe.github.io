@@ -1,0 +1,399 @@
+[
+  {
+    "artNr": "4040",
+    "bez": "Elektro-Kleingeräte",
+    "geb": "AB"
+  },
+    {
+    "artNr": "4041",
+    "bez": "Elektro-Kleingeräte,schadst. f.",
+    "geb": "Qbox"
+  },
+  {
+    "artNr": "4010",
+    "bez": "Elektro-Großgeräte",
+    "geb": "EUP"
+  },
+  {
+    "artNr": "4020",
+    "bez": "Kühlgeräte",
+    "geb": "FP"
+  },
+  {
+    "artNr": "4030",
+    "bez": "Bildschirmgeräte",
+    "geb": "TPg"
+  },
+    {
+    "artNr": "4031",
+    "bez": "Flachbildschirmgeräte",
+    "geb": "AB"
+  },
+  {
+    "artNr": "4015",
+    "bez": "Nachtspeicheröfen",
+    "geb": "Spezial"
+  },
+  {
+    "artNr": "4050",
+    "bez": "Gasentladungslampen",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "4051",
+    "bez": "Gasentladungslampen Sonderformen",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "4100",
+    "bez": "Gerätebatterien",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4110",
+    "bez": "Fahrzeugbatterien",
+    "geb": "Box"
+  },
+  {
+    "artNr": "4111",
+    "bez": "Lithium-Batterien",
+    "geb": "Spezialfass"
+  },
+  {
+    "artNr": "4120",
+    "bez": "Ni-Cd Akkumulatoren",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4125",
+    "bez": "Traktionsbatterien",
+    "geb": "Großteil"
+  },
+  {
+    "artNr": "4200",
+    "bez": "Altöle",
+    "geb": "Tank"
+  },
+  {
+    "artNr": "4221",
+    "bez": "Feuerlöscher",
+    "geb": "Gitterbox"
+  },
+  {
+    "artNr": "4230",
+    "bez": "Gasflaschen",
+    "geb": "Gestell"
+  },
+  {
+    "artNr": "4260",
+    "bez": "Lösemittel-Wassergemische",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4270",
+    "bez": "Säurengemische",
+    "geb": "IBC"
+  },
+  {
+    "artNr": "4275",
+    "bez": "Laugengemische",
+    "geb": "IBC"
+  },
+  {
+    "artNr": "4280",
+    "bez": "Ölverunreinigtes Erdmaterial",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "4300",
+    "abfC": "55502",
+    "bez": "Altlacke & Werkstättenabfälle",
+    "geb": "ASP = 800I-IBC"
+  },
+  {
+    "artNr": "4305",
+    "bez": "Lack- & Farbschlamm",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4310",
+    "bez": "Kunststoffemballagen (mit schädlichen Restinhalten)",
+    "geb": "Gefahrgut"
+  },
+  {
+    "artNr": "4320",
+    "bez": "Öl-/Wassergemische & Emulsionen",
+    "geb": "Tank"
+  },
+  {
+    "artNr": "4325",
+    "bez": "Ölschlamm & Ölgatsch",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4330",
+    "bez": "Schädlingsbekämpfungs- & Chemikalienreste",
+    "geb": "Gefahrgutbox"
+  },
+  {
+    "artNr": "4340",
+    "bez": "Altmedikamente (unsortierte Arzneien)",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "4350",
+    "abfC": "59803",
+    "bez": "Spraydosen (mit Restinhalt)",
+    "geb": "F200 = 200l Fass"
+  },
+  {
+    "artNr": "4360",
+    "bez": "Spraydosen (mit Restinhalt)",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4380",
+    "bez": "Kondensatoren",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "4390",
+    "bez": "XPS-Dämmplatten",
+    "geb": "Sack"
+  },
+  {
+    "artNr": "4395",
+    "bez": "Mineralwolle",
+    "geb": "Sack"
+  },
+  {
+    "artNr": "4430",
+    "bez": "Netze & Schnüre",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "4450",
+    "bez": "Dispersionsfarben",
+    "geb": "AB"
+  },
+  {
+    "artNr": "4460",
+    "bez": "Altmedikamente (vorsortiert)",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "4461",
+    "bez": "Altmedikamente (vorsortiert/Apotheken)",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "4464",
+    "bez": "Injektionsnadeln",
+    "geb": "QR-Box"
+  },
+  {
+    "artNr": "4465",
+    "bez": "Injektionsnadeln (aus Spitälern)",
+    "geb": "QR-Box"
+  },
+  {
+    "artNr": "5100",
+    "bez": "Ungefährliche medizinische Abfälle",
+    "geb": "Sack"
+  },
+  {
+    "artNr": "3000",
+    "bez": "Altpapier (Deinking-Qualität)",
+    "geb": "AB"
+  },
+  {
+    "artNr": "3005",
+    "bez": "Datenschutzpapier",
+    "geb": "Sicherheitsbehälter"
+  },
+  {
+    "artNr": "3210",
+    "bez": "Nichteisen-Metalle",
+    "geb": "Vbox"
+  },
+  {
+    "artNr": "3211",
+    "bez": "Armaturen & Messing",
+    "geb": "F200"
+  },
+  {
+    "artNr": "3212",
+    "bez": "Alu-Kaffeekapseln",
+    "geb": "F200"
+  },
+  {
+    "artNr": "3220",
+    "bez": "Kabelschrott",
+    "geb": "AB"
+  },
+  {
+    "artNr": "3300",
+    "bez": "Flachglas",
+    "geb": "AB"
+  },
+  {
+    "artNr": "3310",
+    "bez": "Altfenster PVC",
+    "geb": "Gestell"
+  },
+  {
+    "artNr": "3315",
+    "bez": "Altfenster PVC",
+    "geb": "RUP"
+  },
+  {
+    "artNr": "3320",
+    "bez": "Flachglas",
+    "geb": "Gestell"
+  },
+  {
+    "artNr": "3400",
+    "bez": "Speisefett/-öl (Haushalts-Öl)",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "3405",
+    "bez": "Speisefett/-öl (Gastro-Öl)",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "3410",
+    "bez": "Speisefett/-öl (in Kleingebinden)",
+    "geb": "Fass"
+  },
+  {
+    "artNr": "3430",
+    "bez": "Kerzen",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "3500",
+    "bez": "Altreifen",
+    "geb": "Stapel"
+  },
+  {
+    "artNr": "3520",
+    "bez": "Hartkunststoffe",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "3526",
+    "bez": "Kunststoff-Mülltonnen",
+    "geb": "Großteil"
+  },
+  {
+    "artNr": "3540",
+    "bez": "Kunststoff-Sonstige Folien",
+    "geb": "Sack"
+  },
+  {
+    "artNr": "3560",
+    "bez": "Filmmaterial",
+    "geb": "Karton"
+  },
+  {
+    "artNr": "3572",
+    "bez": "Compact-Disk (CD)",
+    "geb": "Box"
+  },
+  {
+    "artNr": "3580",
+    "bez": "Sonderreifen",
+    "geb": "Stapel"
+  },
+  {
+    "artNr": "3585",
+    "bez": "Reifen m. Felgen",
+    "geb": "Stapel"
+  },
+  {
+    "artNr": "3600",
+    "bez": "Mineralischer Bauschutt",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "3610",
+    "bez": "Gipskarton",
+    "geb": "AB"
+  },
+  {
+    "artNr": "3700",
+    "bez": "Altholz",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "3805",
+    "bez": "Ersatzbrennstoff",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "2100",
+    "bez": "Kartonagen (ARA-lizenziert)",
+    "geb": "Presse"
+  },
+  {
+    "artNr": "2200",
+    "bez": "Metallverpackungen",
+    "geb": "AB"
+  },
+  {
+    "artNr": "2210",
+    "bez": "Metallverpackungen - geöffnete Gasbehältnisse",
+    "geb": "Gitterbox"
+  },
+  {
+    "artNr": "2300",
+    "bez": "Glasverpackungen",
+    "geb": "Container"
+  },
+  {
+    "artNr": "2400",
+    "bez": "Getränke-Verbundkartons",
+    "geb": "Sack"
+  },
+  {
+    "artNr": "2520",
+    "bez": "Eimer & Kanister",
+    "geb": "EUP"
+  },
+  {
+    "artNr": "2540",
+    "bez": "Kunststoff Verpackungsfolien",
+    "geb": "Presse"
+  },
+  {
+    "artNr": "2555",
+    "bez": "Big-Bags",
+    "geb": "EUP"
+  },
+  {
+    "artNr": "2565",
+    "bez": "EPS-Styropor",
+    "geb": "Sack"
+  },
+  {
+    "artNr": "2580",
+    "bez": "Holzverpackungen",
+    "geb": "Mulde"
+  },
+  {
+    "artNr": "2590",
+    "bez": "Keramikverpackungen",
+    "geb": "Kiste"
+  },
+  {
+    "artNr": "9900",
+    "bez": "Hilfsgebinde",
+    "geb": "RUP"
+  },
+  {
+    "artNr": "1000",
+    "bez": "Textilen",
+    "geb": "TPg"
+  }
+]

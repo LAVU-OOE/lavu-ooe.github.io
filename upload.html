@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload JSON to Cloudflare</title>
+</head>
+<body>
+    <h2>Upload sortiment.json</h2>
+    <input type="file" id="fileInput" accept=".json">
+    <button onclick="uploadFile()">Upload</button>
+    <pre id="result"></pre>
+
+    <script>
+    async function uploadFile() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        if (!file) return alert('Select a file first!');
+
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            try {
+                const jsonData = JSON.parse(e.target.result);
+                const response = await fetch(
+                    'https://sortiment-api.YOUR_USERNAME.workers.dev/',
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + btoa('admin:YOUR_PASSWORD')
+                        },
+                        body: JSON.stringify(jsonData)
+                    }
+                );
+                const result = await response.json();
+                document.getElementById('result').textContent = 
+                    JSON.stringify(result, null, 2);
+            } catch(error) {
+                document.getElementById('result').textContent = 
+                    'Error: ' + error.message;
+            }
+        };
+        reader.readAsText(file);
+    }
+    </script>
+</body>
+</html>
