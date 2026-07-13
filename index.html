@@ -151,7 +151,7 @@
     </div>
 
     <script>
-        const targetFile = 'app/index.html';
+        const targetFile = 'app-drawer/';
         const fallbackFile = 'README.md';
         let retryCount = 0;
         const MAX_RETRIES = 3;
@@ -186,7 +186,7 @@
                     setTimeout(() => {
                         const currentPath = window.location.pathname;
                         const basePath = currentPath.endsWith('/') ? currentPath : currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-                        window.location.replace(basePath + 'app/index.html');
+                        window.location.replace(basePath + 'app-drawer/');
                     }, 500);
                 } else {
                     throw new Error(`HTTP ${response.status}`);
