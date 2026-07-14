@@ -7,7 +7,7 @@ const translations = {
         statRec: "Waste materials collected annually",
         statStaff: "Dedicated team members",
         statCirc: "Circular Economy Upper Austria",
-        gridTitle: "Integrated Applications",
+        gridTitle: "My Applications",
         modalAdd: "Add App",
         modalEdit: "Edit App",
         lblAppName: "App Name",
@@ -33,7 +33,7 @@ const translations = {
         statRec: "Altstoffe jährlich gesammelt",
         statStaff: "Engagierte Mitarbeiter",
         statCirc: "Kreislaufwirtschaft OÖ",
-        gridTitle: "Integrierte Anwendungen",
+        gridTitle: "Meine Anwendungen",
         modalAdd: "App hinzufügen",
         modalEdit: "App bearbeiten",
         lblAppName: "Name der App",
@@ -57,8 +57,8 @@ let currentLang = 'en';
 
 const defaultApps = [
     {
-        name: "Etiketten-Druckstudio",
-        url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
+        name: "Label Printing Studio",
+        url: "https://lavu-ooe.github.io/label-studio/",
         desc: "Studio for creating and printing standardized container and sorting labels for the LAVU-OOE network.",
         icon: "🏷️"
     }
