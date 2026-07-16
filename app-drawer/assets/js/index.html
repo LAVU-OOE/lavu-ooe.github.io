@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAVU-OOE App Drawer</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-brand">
+                <h1>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--primary-color);"><path d="M4 4h16v3H4V4zm0 6h7v10H4V10zm9 0h7v4h-7v-4zm0 6h7v4h-7v-4z" fill="currentColor"/></svg>
+                    LAVU-OOE App Drawer
+                </h1>
+                <p id="txtSubheading">Central software infrastructure & digital logistics tools</p>
+                <div class="lavu-meta-row">
+                    <div class="lavu-pillars">
+                        <span class="pillar-badge pillar-nachhaltig" id="badgeP1">Sustainable</span>
+                        <span class="pillar-badge pillar-innovativ" id="badgeP2">Innovative</span>
+                        <span class="pillar-badge pillar-kommunal" id="badgeP3">Municipal</span>
+                    </div>
+                    
+                    <button class="btn-info-toggle" id="btnInfoToggle" onclick="toggleStatsDashboard()" title="Show/Hide LAVU Infos">
+                        <span class="info-circle-icon">i</span>
+                        <span id="lblInfoBtnText">Info</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btnLangEn" onclick="switchLanguage('en')">EN</button>
+                    <button class="lang-btn" id="btnLangDe" onclick="switchLanguage('de')">DE</button>
+                </div>
+                
+                <button class="btn-add-app" id="btnAddApp" onclick="openModal('add')">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="stroke: currentColor; stroke-width: 2.5; stroke-linecap: round;"><path d="M8 3v10M3 8h10"/></svg>
+                    <span>Add App</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="lavu-dashboard-stats" id="lavuStatsDashboard">
+        <div class="stat-card">
+            <div class="stat-icon">🌱</div>
+            <div class="stat-info">
+                <p class="stat-value">179</p>
+                <p class="stat-label" id="lblStatAsz">Recycling Centers (ASZ)</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🚛</div>
+            <div class="stat-info">
+                <p class="stat-value">> 300k t</p>
+                <p class="stat-label" id="lblStatRec">Waste materials collected annually</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <p class="stat-value">700+</p>
+                <p class="stat-label" id="lblStatStaff">Dedicated team members</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-info">
+                <p class="stat-value">100%</p>
+                <p class="stat-label" id="lblStatCirc">Circular Economy Upper Austria</p>
+            </div>
+        </div>
+    </section>
+    <div class="section-title" id="txtGridTitle">My Applications</div>
+    <main class="app-grid" id="appGrid">
+    </main>
+    <div class="modal" id="appModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Add App</h2>
+            <form id="appForm" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="appIndex">
+                
+                <div class="form-group">
+                    <label for="appName" id="lblAppName">App Name</label>
+                    <input type="text" id="appName" required placeholder="e.g. Label Printing Studio">
+                </div>
+
+                <div class="form-group">
+                    <label for="appUrl" id="lblAppUrl">App URL (Live Version)</label>
+                    <input type="url" id="appUrl" required placeholder="https://lavu-ooe.github.io/...">
+                </div>
+
+                <div class="form-group">
+                    <label for="appDesc" id="lblAppDesc">Description</label>
+                    <textarea id="appDesc" rows="3" placeholder="Short description of the app..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="appIcon" id="lblAppIcon">Emoji Icon</label>
+                    <input type="text" id="appIcon" placeholder="e.g. 🏷️ or 📱" maxLength="2">
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" id="btnCancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-submit" id="submitBtn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>
