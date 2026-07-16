@@ -34,11 +34,6 @@
                     <button class="lang-btn active" id="btnLangEn" onclick="switchLanguage('en')">EN</button>
                     <button class="lang-btn" id="btnLangDe" onclick="switchLanguage('de')">DE</button>
                 </div>
-                
-                <button class="btn-add-app" id="btnAddApp" onclick="openModal('add')">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="stroke: currentColor; stroke-width: 2.5; stroke-linecap: round;"><path d="M8 3v10M3 8h10"/></svg>
-                    <span>Add App</span>
-                </button>
             </div>
         </div>
     </header>
@@ -73,44 +68,11 @@
             </div>
         </div>
     </section>
+    
     <div class="section-title" id="txtGridTitle">My Applications</div>
     <main class="app-grid" id="appGrid">
-    </main>
-    <div class="modal" id="appModal">
-        <div class="modal-content">
-            <h2 id="modalTitle">Add App</h2>
-            <form id="appForm" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" id="appIndex">
-                
-                <div class="form-group">
-                    <label for="appName" id="lblAppName">App Name</label>
-                    <input type="text" id="appName" required placeholder="e.g. Label Printing Studio">
-                </div>
-
-                <div class="form-group">
-                    <label for="appUrl" id="lblAppUrl">App URL (Live Version)</label>
-                    <input type="url" id="appUrl" required placeholder="https://lavu-ooe.github.io/...">
-                </div>
-
-                <div class="form-group">
-                    <label for="appDesc" id="lblAppDesc">Description</label>
-                    <textarea id="appDesc" rows="3" placeholder="Short description of the app..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="appIcon" id="lblAppIcon">Emoji Icon</label>
-                    <input type="text" id="appIcon" placeholder="e.g. 🏷️ or 📱" maxLength="2">
-                </div>
-
-                <div class="modal-buttons">
-                    <button type="button" class="btn-cancel" id="btnCancel" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn-submit" id="submitBtn">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
+        </main>
 
     <script src="assets/js/script.js"></script>
-
 </body>
 </html>
