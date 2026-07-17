@@ -32,7 +32,7 @@ function checkApp() {
             // Kleine Verzögerung für UX
             setTimeout(() => {
                 const currentPath = window.location.pathname;
-                const basePath = currentPath.endsWith('/') ? currentPath : currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+                const basePath = currentPath.endsWith('../') ? currentPath : currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
                 window.location.replace(basePath + '/apps/');
             }, 500);
         } else {
