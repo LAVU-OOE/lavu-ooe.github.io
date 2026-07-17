@@ -20,6 +20,7 @@
 │ │ │ ├── 🟨 script.js
 │ ├── 📄 index.html
 │ ├── 📄 LICENSE
+│ ├── 🗂️ manifest.json
 ├── 📁 assets
 │ ├── 📁 css
 │ │ ├── 🎨 pwa-install-button.css
@@ -45,7 +46,8 @@
 │ │ ├── 🟨 script.js
 │ │ ├── 🗂️ sortiment.json
 ├── 📁 cf-worker
-│ ├── 📄 wrangler.jsonc
+│ ├── 🟨 index.js
+│ ├── 📄 wrangler.toml
 ├── 📄 favicon.ico
 ├── 📜 folder-structure.md
 ├── 📄 index.html
