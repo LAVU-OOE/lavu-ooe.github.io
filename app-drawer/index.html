@@ -74,10 +74,10 @@
         </div>
     </section>
 
-    <div class="section-title" id="txtGridTitle">Integrated Applications</div>
-    <main class="app-grid" id="appGrid">
-        <!-- Dynamically loaded via API -->
-    </main>
+<div class="section-title" id="txtGridTitle">My Apps</div>
+<main class="app-grid" id="appGrid">
+    <!-- Dynamically loaded via API -->
+</main>
 
     <!-- App Input Dialog Modal -->
     <div class="modal" id="appModal">
@@ -99,9 +99,24 @@
                     <textarea id="appDesc" rows="3" placeholder="Short description of the app..."></textarea>
                 </div>
 
+                <!-- Custom Visual Emoji Selection Area -->
                 <div class="form-group">
-                    <label for="appIcon" id="lblAppIcon">Emoji Icon</label>
-                    <input type="text" id="appIcon" placeholder="e.g. 🏷️ or 📱" maxLength="2">
+                    <label id="lblAppIcon">Choose Icon</label>
+                    <input type="hidden" id="appIcon" value="🚀">
+                    <div class="emoji-grid" id="emojiGrid">
+                        <button type="button" class="emoji-btn active" data-emoji="🚀" onclick="selectEmoji('🚀', this)">🚀</button>
+                        <button type="button" class="emoji-btn" data-emoji="🌱" onclick="selectEmoji('🌱', this)">🌱</button>
+                        <button type="button" class="emoji-btn" data-emoji="🚛" onclick="selectEmoji('🚛', this)">🚛</button>
+                        <button type="button" class="emoji-btn" data-emoji="♻️" onclick="selectEmoji('♻️', this)">♻️</button>
+                        <button type="button" class="emoji-btn" data-emoji="🔄" onclick="selectEmoji('🔄', this)">🔄</button>
+                        <button type="button" class="emoji-btn" data-emoji="🏷️" onclick="selectEmoji('🏷️', this)">🏷️</button>
+                        <button type="button" class="emoji-btn" data-emoji="👥" onclick="selectEmoji('👥', this)">👥</button>
+                        <button type="button" class="emoji-btn" data-emoji="📱" onclick="selectEmoji('📱', this)">📱</button>
+                        <button type="button" class="emoji-btn" data-emoji="💻" onclick="selectEmoji('💻', this)">💻</button>
+                        <button type="button" class="emoji-btn" data-emoji="📦" onclick="selectEmoji('📦', this)">📦</button>
+                        <button type="button" class="emoji-btn" data-emoji="📊" onclick="selectEmoji('📊', this)">📊</button>
+                        <button type="button" class="emoji-btn" data-emoji="🛠️" onclick="selectEmoji('🛠️', this)">🛠️</button>
+                    </div>
                 </div>
 
                 <div class="modal-buttons">

@@ -1,5 +1,5 @@
 // Paste your Cloudflare Worker URL here:
-const API_URL = "http://apps-api.lavu-ooe.workers.dev/";
+const API_URL = "https://lavu-app-drawer-api.your-subdomain.workers.dev";
 
 const translations = {
     en: {
@@ -10,12 +10,12 @@ const translations = {
         statRec: "Waste materials collected annually",
         statStaff: "Dedicated team members",
         statCirc: "Circular Economy Upper Austria",
-        gridTitle: "Integrated Applications",
+        gridTitle: "My Apps", // <-- Updated here
         modalAdd: "Add App",
         lblAppName: "App Name",
         lblAppUrl: "App URL (Live Version)",
         lblAppDesc: "Description",
-        lblAppIcon: "Emoji Icon",
+        lblAppIcon: "Choose Icon",
         phName: "e.g. Label Printing Studio",
         phDesc: "Short description of the app...",
         btnCancel: "Cancel",
@@ -32,12 +32,12 @@ const translations = {
         statRec: "Altstoffe jährlich gesammelt",
         statStaff: "Engagierte Mitarbeiter",
         statCirc: "Kreislaufwirtschaft OÖ",
-        gridTitle: "Integrierte Anwendungen",
+        gridTitle: "Meine Apps", // <-- Updated here to match
         modalAdd: "App hinzufügen",
         lblAppName: "Name der App",
         lblAppUrl: "App URL (Live Version)",
         lblAppDesc: "Beschreibung",
-        lblAppIcon: "Emoji Icon",
+        lblAppIcon: "Symbol wählen",
         phName: "z.B. Etiketten-Druckstudio",
         phDesc: "Kurze Beschreibung der App...",
         btnCancel: "Abbrechen",
@@ -51,23 +51,16 @@ const translations = {
 let currentLang = 'en';
 let apps = [];
 
-// Fallback to avoid complete empty screens if API is offline
 const defaultAppsFallback = [
     {
         name: "Etiketten-Druckstudio",
         url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
         desc: "Studio for creating and printing standardized container and sorting labels for the LAVU-OOE network.",
         icon: "🏷️"
-    },
-    {
-        name: "PDF Editor",
-        url: "https://lavu-ooe.github.io/pdf-editor/",
-        desc: "Offline PDF editor. Add images, signatures, text to any PDF.",
-        icon: "📑"
     }
 ];
 
-// 1. Fetch apps dynamically from the Cloudflare Worker API
+// Fetch apps dynamically from the Cloudflare Worker API
 async function loadAppsFromAPI() {
     try {
         const response = await fetch(API_URL);
@@ -156,6 +149,9 @@ function openModal() {
     document.getElementById('appForm').reset();
     title.innerText = t.modalAdd;
 
+    // Default the selection dynamically back to Rocket emoji on launch
+    selectEmoji('🚀', document.querySelector('.emoji-btn[data-emoji="🚀"]'));
+
     modal.style.display = 'flex';
 }
 
@@ -163,7 +159,19 @@ function closeModal() {
     document.getElementById('appModal').style.display = 'none';
 }
 
-// 2. Submit new applications to your Cloudflare Worker DB
+// Visual layout helper to toggle active CSS states on selected items
+function selectEmoji(emoji, btnElement) {
+    document.getElementById('appIcon').value = emoji;
+    
+    const buttons = document.querySelectorAll('.emoji-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    if (btnElement) {
+        btnElement.classList.add('active');
+    }
+}
+
+// Submit new applications to your Cloudflare Worker DB
 async function handleFormSubmit(event) {
     event.preventDefault();
     
@@ -189,7 +197,6 @@ async function handleFormSubmit(event) {
             throw new Error(`Failed to save: ${response.status}`);
         }
 
-        // The worker returns the entire updated list of apps
         apps = await response.json();
         renderApps();
         closeModal();
