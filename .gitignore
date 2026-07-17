@@ -12,6 +12,7 @@ desktop.ini
 *.njsproj
 *.sln
 *.code-workspace
+*.folder-structure.md
 
 # Node.js/Python
 node_modules/
