@@ -216,7 +216,32 @@ async function handleFormSubmit(event) {
             throw new Error(`Failed to save: ${response.status}`);
         }
 
-        apps = await response.json();
+        // 1. Safely check content type before parsing JSON
+        const contentType = response.headers.get("content-type");
+        let responseData = null;
+        
+        if (contentType && contentType.includes("application/json")) {
+            responseData = await response.json();
+        } else {
+            await response.text(); // Consume text response (like "OK") to clear buffer
+        }
+
+        // 2. Smart state update based on what the server returned
+        if (Array.isArray(responseData)) {
+            // Worker returned the entire updated array
+            apps = responseData;
+        } else if (responseData && responseData.added) {
+            // Worker returned a wrapper with the new app
+            apps.push(responseData.added);
+        } else if (responseData && responseData.name && responseData.url) {
+            // Worker returned just the saved app object
+            apps.push(responseData);
+        } else {
+            // Worker returned plain text/generic success - push local data manually
+            apps.push(appData);
+        }
+
+        // 3. Render and close modal safely
         renderApps();
         closeModal();
     } catch (error) {
