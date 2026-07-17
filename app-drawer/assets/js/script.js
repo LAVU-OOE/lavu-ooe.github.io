@@ -57,6 +57,12 @@ const defaultAppsFallback = [
         url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
         desc: "Studio for creating and printing standardized container and sorting labels for the LAVU-OOE network.",
         icon: "🏷️"
+    },
+        {
+        name: "PDF Editor",
+        url: "https://lavu-ooe.github.io/PDF-Editor/",
+        desc: "Tool for editing and manipulating PDF documents.",
+        icon: "📄"
     }
 ];
 
