@@ -1,5 +1,0 @@
-{
-  "name": "cf-worker",
-  "compatibility_date": "2026-07-17",
-  "main": "index.js"
-}
