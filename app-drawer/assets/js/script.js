@@ -1,5 +1,5 @@
 // Paste your Cloudflare Worker URL here:
-const API_URL = "https://lavu-app-drawer-api.your-subdomain.workers.dev";
+const API_URL = "http://apps-api.lavu-ooe.workers.dev/";
 
 const translations = {
     en: {
@@ -58,6 +58,12 @@ const defaultAppsFallback = [
         url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
         desc: "Studio for creating and printing standardized container and sorting labels for the LAVU-OOE network.",
         icon: "🏷️"
+    },
+    {
+        name: "PDF Editor",
+        url: "https://lavu-ooe.github.io/pdf-editor/",
+        desc: "Offline PDF editor. Add images, signatures, text to any PDF.",
+        icon: "📑"
     }
 ];
 
