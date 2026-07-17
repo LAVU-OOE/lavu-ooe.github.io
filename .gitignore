@@ -27,3 +27,15 @@ __pycache__/
 # Organization Projects
 Etiketten-Druckstudio/
 labelStudio/
+
+# Cloudflare Wrangler local development cache
+.wrangler/
+.dev.vars
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# Windows system files
+Thumbs.db
+Desktop.ini
