@@ -122,6 +122,19 @@ function switchLanguage(lang) {
     renderApps();
 }
 
+async function loadAppsFromAPI() {
+  try {
+    const res = await fetch('https://apps-api.lavu-ooe.workers.dev/');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    apps = data; // replace local apps with API data
+    renderApps();
+  } catch (err) {
+    console.warn('API load failed. Using fallback defaults.', err);
+    // Keep the existing default apps (already set)
+    renderApps();
+  }
+}
 function renderApps() {
     const grid = document.getElementById('appGrid');
     grid.innerHTML = '';
