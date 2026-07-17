@@ -45,6 +45,7 @@
 │ │ ├── 🟨 script.js
 │ │ ├── 🗂️ sortiment.json
 ├── 📁 cf-worker
+│ ├── 📄 wrangler.jsonc
 ├── 📄 favicon.ico
 ├── 📜 folder-structure.md
 ├── 📄 index.html
