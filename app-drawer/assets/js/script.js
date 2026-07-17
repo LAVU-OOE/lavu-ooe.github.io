@@ -60,7 +60,7 @@ const defaultAppsFallback = [
     },
         {
         name: "PDF Editor",
-        url: "https://lavu-ooe.github.io/PDF-Editor/",
+        url: "https://lavu-ooe.github.io/pdf-editor/",
         desc: "Tool for editing and manipulating PDF documents.",
         icon: "📄"
     }
