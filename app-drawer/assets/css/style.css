@@ -1,3 +1,8 @@
+/* --- GLOBAL BOX-SIZING RESET (Fixes Mobile Overflow) --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 :root {
     --bg-color: #f6f8fa;
     --card-bg: #ffffff;
@@ -60,11 +65,13 @@ header {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .lavu-pillars {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .pillar-badge {
@@ -131,6 +138,7 @@ header {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .lang-switcher {
@@ -196,9 +204,15 @@ header {
 }
 
 .lavu-dashboard-stats.show {
-    max-height: 200px;
+    max-height: 500px; /* Increased to support multi-line wrap on mobile */
     opacity: 1;
     margin-bottom: 35px;
+}
+
+@media (min-width: 601px) {
+    .lavu-dashboard-stats.show {
+        max-height: 200px;
+    }
 }
 
 .stat-card {
@@ -221,6 +235,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .stat-info .stat-value {
@@ -306,6 +321,7 @@ header {
     line-height: 1.5;
 }
 
+/* --- MODAL MOBILE ADJUSTMENTS --- */
 .modal {
     display: none;
     position: fixed;
@@ -318,11 +334,12 @@ header {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 16px; /* Prevents touching screen edge on mobile */
 }
 
 .modal-content {
     background-color: white;
-    padding: 30px;
+    padding: 24px; /* Slightly tighter padding for mobile layout */
     border-radius: 12px;
     width: 100%;
     max-width: 420px;
@@ -353,7 +370,6 @@ header {
     padding: 10px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    box-sizing: border-box;
     background-color: #f6f8fa;
     font-size: 14px;
 }
@@ -398,27 +414,13 @@ header {
 
 .btn-submit:hover { background-color: var(--primary-hover); }
 
-/* --- NEW FOOTER STYLING --- */
+/* --- FOOTER STYLING --- */
 .ftr {
     margin-top: 60px;
     font-size: 13px;
     color: var(--muted-text);
-}
-
-.ftr a {
-    color: var(--muted-text);
-}
-
-.ftr a:hover {
-    color: var(--primary-color);
-}
-/* ... [Previous style rules remain completely unchanged] ... */
-
-/* --- NEW FOOTER STYLING --- */
-.ftr {
-    margin-top: 60px;
-    font-size: 13px;
-    color: var(--muted-text);
+    padding: 0 15px;
+    text-align: center;
 }
 
 .ftr a {
@@ -429,7 +431,7 @@ header {
     color: var(--primary-color);
 }
 
-/* --- VISUAL EMOJI SELECTION GRID STYLING --- */
+/* --- EMOJI SELECTION GRID --- */
 .emoji-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -459,4 +461,56 @@ header {
     background-color: #ddf4ff;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(0, 102, 214, 0.15);
+}
+
+/* --- DEDICATED MEDIA QUERY FOR MOBILE DEVICES --- */
+@media (max-width: 600px) {
+    header {
+        padding: 20px 15px;
+        margin-bottom: 15px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header-brand h1 {
+        font-size: 22px;
+    }
+
+    .header-brand p {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn-add-app {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .emoji-grid {
+        grid-template-columns: repeat(4, 1fr); /* More space for icons on mobile */
+    }
+
+    .lavu-dashboard-stats {
+        padding: 0 15px;
+        grid-template-columns: 1fr; /* Stack dashboard cards */
+    }
+
+    .app-grid {
+        grid-template-columns: 1fr; /* Display cards in a clean, single column */
+        padding: 0 15px;
+        gap: 15px;
+    }
+
+    .app-card {
+        padding: 18px;
+    }
 }
