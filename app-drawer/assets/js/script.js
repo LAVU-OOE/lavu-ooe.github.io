@@ -1,12 +1,25 @@
+// Paste your Cloudflare Worker URL here:
+const API_URL = "https://lavu-app-drawer-api.your-subdomain.workers.dev";
+
 const translations = {
     en: {
         subheading: "Central software infrastructure & digital logistics tools",
         p1: "Sustainable", p2: "Innovative", p3: "Municipal",
+        addApp: "Add App",
         statAsz: "Recycling Centers (ASZ)",
         statRec: "Waste materials collected annually",
         statStaff: "Dedicated team members",
         statCirc: "Circular Economy Upper Austria",
         gridTitle: "Integrated Applications",
+        modalAdd: "Add App",
+        lblAppName: "App Name",
+        lblAppUrl: "App URL (Live Version)",
+        lblAppDesc: "Description",
+        lblAppIcon: "Emoji Icon",
+        phName: "e.g. Label Printing Studio",
+        phDesc: "Short description of the app...",
+        btnCancel: "Cancel",
+        btnSave: "Save",
         noDesc: "No description available.",
         infoTitle: "Show/Hide LAVU Infos",
         infoBtnText: "Info"
@@ -14,11 +27,21 @@ const translations = {
     de: {
         subheading: "Zentrale Software-Infrastruktur & digitale Logistikwerkzeuge",
         p1: "Nachhaltig", p2: "Innovativ", p3: "Kommunal",
-        statAsz: "Altstoffsammelzentren (ASZ)",
+        addApp: "App hinzufügen",
+        statAsz: "Altstoffsammelzentrum (ASZ)",
         statRec: "Altstoffe jährlich gesammelt",
         statStaff: "Engagierte Mitarbeiter",
         statCirc: "Kreislaufwirtschaft OÖ",
         gridTitle: "Integrierte Anwendungen",
+        modalAdd: "App hinzufügen",
+        lblAppName: "Name der App",
+        lblAppUrl: "App URL (Live Version)",
+        lblAppDesc: "Beschreibung",
+        lblAppIcon: "Emoji Icon",
+        phName: "z.B. Etiketten-Druckstudio",
+        phDesc: "Kurze Beschreibung der App...",
+        btnCancel: "Abbrechen",
+        btnSave: "Speichern",
         noDesc: "Keine Beschreibung verfügbar.",
         infoTitle: "LAVU Infos anzeigen/ausblenden",
         infoBtnText: "Info"
@@ -28,7 +51,7 @@ const translations = {
 let currentLang = 'en';
 let apps = [];
 
-// Fallback configuration if apps.json is missing or encounters load issues
+// Fallback to avoid complete empty screens if API is offline
 const defaultAppsFallback = [
     {
         name: "Etiketten-Druckstudio",
@@ -38,15 +61,16 @@ const defaultAppsFallback = [
     }
 ];
 
-async function loadCentralApps() {
+// 1. Fetch apps dynamically from the Cloudflare Worker API
+async function loadAppsFromAPI() {
     try {
-        const response = await fetch('apps.json');
+        const response = await fetch(API_URL);
         if (!response.ok) {
             throw new Error(`HTTP network error: ${response.status}`);
         }
         apps = await response.json();
     } catch (error) {
-        console.warn("Could not read central apps.json file. Reverting to internal fallback array.", error);
+        console.warn("API load failed. Reverting to basic fallback defaults.", error);
         apps = defaultAppsFallback;
     } finally {
         switchLanguage(currentLang);
@@ -74,11 +98,21 @@ function switchLanguage(lang) {
     document.getElementById('badgeP3').innerText = t.p3;
     document.getElementById('btnInfoToggle').title = t.infoTitle;
     document.getElementById('lblInfoBtnText').innerText = t.infoBtnText;
+    document.getElementById('btnAddApp').querySelector('span').innerText = t.addApp;
     document.getElementById('lblStatAsz').innerText = t.statAsz;
     document.getElementById('lblStatRec').innerText = t.statRec;
     document.getElementById('lblStatStaff').innerText = t.statStaff;
     document.getElementById('lblStatCirc').innerText = t.statCirc;
     document.getElementById('txtGridTitle').innerText = t.gridTitle;
+    
+    document.getElementById('lblAppName').innerText = t.lblAppName;
+    document.getElementById('lblAppUrl').innerText = t.lblAppUrl;
+    document.getElementById('lblAppDesc').innerText = t.lblAppDesc;
+    document.getElementById('lblAppIcon').innerText = t.lblAppIcon;
+    document.getElementById('appName').placeholder = t.phName;
+    document.getElementById('appDesc').placeholder = t.phDesc;
+    document.getElementById('btnCancel').innerText = t.btnCancel;
+    document.getElementById('submitBtn').innerText = t.btnSave;
     
     renderApps();
 }
@@ -108,11 +142,65 @@ function renderApps() {
     });
 }
 
+function openModal() {
+    const modal = document.getElementById('appModal');
+    const title = document.getElementById('modalTitle');
+    const t = translations[currentLang];
+    
+    document.getElementById('appForm').reset();
+    title.innerText = t.modalAdd;
+
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('appModal').style.display = 'none';
+}
+
+// 2. Submit new applications to your Cloudflare Worker DB
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerText = currentLang === 'de' ? 'Wird gespeichert...' : 'Saving...';
+
+    const appData = {
+        name: document.getElementById('appName').value,
+        url: document.getElementById('appUrl').value,
+        desc: document.getElementById('appDesc').value,
+        icon: document.getElementById('appIcon').value || '🚀'
+    };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(appData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to save: ${response.status}`);
+        }
+
+        // The worker returns the entire updated list of apps
+        apps = await response.json();
+        renderApps();
+        closeModal();
+    } catch (error) {
+        console.error("Error submitting new application link:", error);
+        alert(currentLang === 'de' ? 'Fehler beim Speichern der App.' : 'Could not save the application.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = translations[currentLang].btnSave;
+    }
+}
+
 function escapeHTML(str) {
     return str.replace(/[&<>'"]/g, 
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
     );
 }
 
-// Kick off initialization routines when the browser is ready
-document.addEventListener('DOMContentLoaded', loadCentralApps);
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', loadAppsFromAPI);
