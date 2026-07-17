@@ -397,3 +397,18 @@ header {
 }
 
 .btn-submit:hover { background-color: var(--primary-hover); }
+
+/* --- NEW FOOTER STYLING --- */
+.ftr {
+    margin-top: 60px;
+    font-size: 13px;
+    color: var(--muted-text);
+}
+
+.ftr a {
+    color: var(--muted-text);
+}
+
+.ftr a:hover {
+    color: var(--primary-color);
+}
