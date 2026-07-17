@@ -1,23 +1,5 @@
 ```
 ├── 📁 app-drawer
-│ ├── 📁 assets
-│ │ ├── 📁 css
-│ │ │ ├── 🎨 styles.css
-│ │ ├── 📁 icons
-│ │ │ ├── 🖼️ android-chrome-192x192.png
-│ │ │ ├── 🖼️ android-chrome-512x512.png
-│ │ │ ├── 🖼️ apple-touch-icon.png
-│ │ │ ├── 🖼️ favicon-96x96.png
-│ │ │ ├── 📄 favicon.ico
-│ │ │ ├── 🖼️ favicon.svg
-│ │ │ ├── 🖼️ icon.svg
-│ │ │ ├── 🖼️ logo.png
-│ │ │ ├── 📄 site.webmanifest
-│ │ │ ├── 🖼️ web-app-manifest-192x192.png
-│ │ │ ├── 🖼️ web-app-manifest-512x512.png
-│ │ ├── 📄 index.html
-│ │ ├── 📁 js
-│ │ │ ├── 🟨 script.js
 │ ├── 📄 index.html
 ├── 📁 apps
 │ ├── 🗂️ apps.json
@@ -64,6 +46,7 @@
 │ │ ├── 🗂️ sortiment.json
 ├── 📁 cf-worker
 ├── 📄 favicon.ico
+├── 📜 folder-structure.md
 ├── 📄 index.html
 ├── 📁 label-studio
 │ ├── 📁 assets
@@ -93,7 +76,6 @@
 ├── 📄 lavu-ooe.github.io.code-workspace
 ├── 📄 LICENSE
 ├── 🗂️ manifest.json
-├── 📜 Ordnerstruktur.md
 ├── 📁 pdf-editor
 │ ├── 📁 assets
 │ │ ├── 📁 css
@@ -102,6 +84,5 @@
 │ ├── 📄 LICENSE
 │ ├── 📜 README.md
 ├── 📜 README.md
-├── 📜 tree.md
 
 ```
