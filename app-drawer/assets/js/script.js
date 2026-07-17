@@ -1,4 +1,4 @@
-const targetFile = 'https://lavu-ooe.github.io';
+const targetFile = '/apps/';
 const fallbackFile = 'README.md';
 let retryCount = 0;
 const MAX_RETRIES = 3;
