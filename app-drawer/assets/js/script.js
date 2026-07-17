@@ -1,4 +1,4 @@
-const targetFile = '/apps/';
+const targetFile = 'https://lavu-ooe.github.io/apps/';
 const fallbackFile = 'README.md';
 let retryCount = 0;
 const MAX_RETRIES = 3;
@@ -19,6 +19,7 @@ function tryReload() {
 function checkApp() {
     updateStatus(`Prüfe Anwendung (Versuch ${retryCount + 1}/${MAX_RETRIES})...`);
     
+    // Fetching the exact absolute target path
     fetch(targetFile, { 
         method: 'GET',
         headers: {
@@ -29,11 +30,10 @@ function checkApp() {
     .then(response => {
         if (response.ok) {
             updateStatus('✅ Anwendung gefunden! Weiterleitung...');
-            // Kleine Verzögerung für UX
+            
+            // Clean redirect straight to the root application folder
             setTimeout(() => {
-                const currentPath = window.location.pathname;
-                const basePath = currentPath.endsWith('../') ? currentPath : currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-                window.location.replace(basePath + '/apps/');
+                window.location.replace('https://lavu-ooe.github.io/apps/');
             }, 500);
         } else {
             throw new Error(`HTTP ${response.status}`);
