@@ -1,5 +1,5 @@
 // Paste your Cloudflare Worker URL here:
-const API_URL = "https://lavu-app-drawer-api.your-subdomain.workers.dev";
+const API_URL = "https://apps-api.lavu-ooe.workers.dev/";
 
 const translations = {
     en: {
