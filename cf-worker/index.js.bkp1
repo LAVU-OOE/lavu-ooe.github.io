@@ -1,0 +1,69 @@
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*", // Erlaubt den Zugriff von Github Pages
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export default {
+  async fetch(request, env, ctx) {
+    // 1. CORS Preflight-Anfragen (OPTIONS) abfangen
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    try {
+      // Sicherheits-Check für das im Dashboard verknüpfte Binding
+      if (!env.APPS_DATA) {
+        throw new Error("Datenbank-Binding 'APPS_DATA' wurde im Cloudflare Dashboard nicht gefunden.");
+      }
+
+      // --- GET: Apps auslesen ---
+      if (request.method === "GET") {
+        const rawData = await env.APPS_DATA.get("apps_list");
+        
+        // Falls das KV-Namespace noch ganz leer ist, leeres Array schicken
+        const apps = rawData ? JSON.parse(rawData) : [];
+        
+        return new Response(JSON.stringify(apps), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        });
+      }
+
+      // --- POST: Neue App hinzufügen ---
+      if (request.method === "POST") {
+        const newApp = await request.json();
+        
+        // Validierung der Pflichtfelder
+        if ((!newApp.nameDe && !newApp.nameEn) || !newApp.url) {
+          return new Response(JSON.stringify({ error: "Name und URL sind Pflichtfelder!" }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
+        // Aktuelle Liste laden
+        const rawData = await env.APPS_DATA.get("apps_list");
+        let apps = rawData ? JSON.parse(rawData) : [];
+        
+        // Neue App hinzufügen und speichern
+        apps.push(newApp);
+        await env.APPS_DATA.put("apps_list", JSON.stringify(apps));
+
+        return new Response(JSON.stringify({ added: newApp }), {
+          status: 201,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        });
+      }
+
+      return new Response("Method not allowed", { status: 405, headers: corsHeaders });
+
+    } catch (error) {
+      // Verhindert den unkontrollierten Absturz des Workers
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      });
+    }
+  }
+};
