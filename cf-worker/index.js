@@ -1,55 +1,114 @@
-﻿export default {
-  async fetch(request, env, ctx) {
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": "https://lavu-ooe.github.io",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    };
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
 
+export default {
+  async fetch(request, env, ctx) {
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
     }
 
     try {
-      if (!env.APPS_KV) {
-        return new Response(JSON.stringify({ error: "APPS_KV database missing" }), { status: 500, headers: corsHeaders });
+      if (!env.APPS_DATA) {
+        throw new Error("Datenbank-Binding 'APPS_DATA' wurde nicht gefunden.");
       }
 
-      const defaultApps = [
-        {
-          name: "Etiketten-Druckstudio",
-          url: "https://lavu-ooe.github.io/Etiketten-Druckstudio/",
-          desc: "Studio for creating and printing standardized container and sorting labels.",
-          icon: "🏷️"
-        }
-      ];
-
+      // --- GET: Alle Apps lesen ---
       if (request.method === "GET") {
-        const storedApps = await env.APPS_KV.get("apps_list");
-        const apps = storedApps ? JSON.parse(storedApps) : defaultApps;
+        const rawData = await env.APPS_DATA.get("apps_list");
+        const apps = rawData ? JSON.parse(rawData) : [];
         return new Response(JSON.stringify(apps), {
           status: 200,
           headers: { ...corsHeaders, "Content-Type": "application/json" }
         });
-      } 
-      
-      else if (request.method === "POST") {
-        const newApp = await request.json();
-        const storedApps = await env.APPS_KV.get("apps_list");
-        const currentApps = storedApps ? JSON.parse(storedApps) : defaultApps;
-        
-        currentApps.push(newApp);
-        await env.APPS_KV.put("apps_list", JSON.stringify(currentApps));
+      }
 
-        return new Response(JSON.stringify(currentApps), {
+      // --- POST: Neue App hinzufügen ---
+      if (request.method === "POST") {
+        const newApp = await request.json();
+        if ((!newApp.nameDe && !newApp.nameEn && !newApp.name) || !newApp.url) {
+          return new Response(JSON.stringify({ error: "Name (DE oder EN) und URL sind Pflichtfelder!" }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
+        const rawData = await env.APPS_DATA.get("apps_list");
+        let apps = rawData ? JSON.parse(rawData) : [];
+        apps.push(newApp);
+        await env.APPS_DATA.put("apps_list", JSON.stringify(apps));
+
+        return new Response(JSON.stringify({ added: newApp }), {
           status: 201,
           headers: { ...corsHeaders, "Content-Type": "application/json" }
         });
       }
 
-      return new Response("Method Not Allowed", { status: 405, headers: corsHeaders });
-    } catch (err) {
-      return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
+      // --- PUT: App aktualisieren ---
+      if (request.method === "PUT") {
+        const { index, app } = await request.json();
+        if (index === undefined || index === null || !app) {
+          return new Response(JSON.stringify({ error: "Index und App-Daten sind erforderlich." }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
+        const rawData = await env.APPS_DATA.get("apps_list");
+        let apps = rawData ? JSON.parse(rawData) : [];
+        if (index < 0 || index >= apps.length) {
+          return new Response(JSON.stringify({ error: "Ungültiger Index." }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
+        apps[index] = app;
+        await env.APPS_DATA.put("apps_list", JSON.stringify(apps));
+
+        return new Response(JSON.stringify({ updated: app }), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        });
+      }
+
+      // --- DELETE: App löschen ---
+      if (request.method === "DELETE") {
+        const { index } = await request.json();
+        if (index === undefined || index === null) {
+          return new Response(JSON.stringify({ error: "Index ist erforderlich." }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
+        const rawData = await env.APPS_DATA.get("apps_list");
+        let apps = rawData ? JSON.parse(rawData) : [];
+        if (index < 0 || index >= apps.length) {
+          return new Response(JSON.stringify({ error: "Ungültiger Index." }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+
+        apps.splice(index, 1);
+        await env.APPS_DATA.put("apps_list", JSON.stringify(apps));
+
+        return new Response(JSON.stringify({ deleted: true }), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        });
+      }
+
+      return new Response("Method not allowed", { status: 405, headers: corsHeaders });
+
+    } catch (error) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      });
     }
   }
 };
