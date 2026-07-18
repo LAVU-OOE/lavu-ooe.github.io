@@ -1,5 +1,6 @@
 ```
 ├── 📁 airdump
+│ ├── 📜 folder-structure.md
 │ ├── 📁 images
 │ │ ├── 🖼️ android-chrome-192x192.png
 │ │ ├── 🖼️ android-chrome-512x512.png
@@ -80,7 +81,7 @@
 │ ├── 📁 airdump-api
 │ │ ├── 🟨 worker.js
 │ │ ├── 📄 wrangler.toml
-│ ├── 📄 folder-structure
+│ ├── 📜 folder-structure.md
 │ ├── 🟨 index.js
 │ ├── 📄 index.js.bkp1
 │ ├── 📄 wrangler.toml
