@@ -15,10 +15,15 @@
 │ │ ├── 📄 snapdrop-graphics.sketch
 │ │ ├── 🖼️ twitter-stream.jpg
 │ ├── 📄 index.html
+│ ├── 📁 lang
+│ │ ├── 🗂️ de.json
+│ │ ├── 🗂️ en.json
 │ ├── 📄 LICENSE
 │ ├── 🗂️ manifest.json
 │ ├── 📁 scripts
+│ │ ├── 🟨 localization.js
 │ │ ├── 🟨 network.js
+│ │ ├── 🟨 persistent-storage.js
 │ │ ├── 🟨 ui.js
 │ ├── 🟨 service-worker.js
 │ ├── 📁 sounds
