@@ -11,8 +11,6 @@ desktop.ini
 *.ntvs*
 *.njsproj
 *.sln
-*.code-workspace
-*.folder-structure.md
 
 # Node.js/Python
 node_modules/
@@ -24,10 +22,6 @@ __pycache__/
 *.db
 *.sqlite
 
-# Organization Projects
-Etiketten-Druckstudio/
-labelStudio/
-
 # Cloudflare Wrangler local development cache
 .wrangler/
 .dev.vars
@@ -35,7 +29,3 @@ labelStudio/
 # Node dependencies
 node_modules/
 npm-debug.log*
-
-# Windows system files
-Thumbs.db
-Desktop.ini
