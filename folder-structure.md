@@ -1,4 +1,30 @@
 ```
+├── 📁 airdump
+│ ├── 📁 images
+│ │ ├── 🖼️ android-chrome-192x192.png
+│ │ ├── 🖼️ android-chrome-512x512.png
+│ │ ├── 🖼️ apple-touch-icon.png
+│ │ ├── 🖼️ favicon-96x96.png
+│ │ ├── 🖼️ logo_blue_512x512.png
+│ │ ├── 🖼️ logo_transparent_128x128.png
+│ │ ├── 🖼️ logo_transparent_512x512.png
+│ │ ├── 🖼️ logo_transparent_white_512x512.png
+│ │ ├── 🖼️ logo_white_512x512.png
+│ │ ├── 🖼️ mstile-150x150.png
+│ │ ├── 🖼️ safari-pinned-tab.svg
+│ │ ├── 📄 snapdrop-graphics.sketch
+│ │ ├── 🖼️ twitter-stream.jpg
+│ ├── 📄 index.html
+│ ├── 📄 LICENSE
+│ ├── 🗂️ manifest.json
+│ ├── 📁 scripts
+│ │ ├── 🟨 network.js
+│ │ ├── 🟨 ui.js
+│ ├── 🟨 service-worker.js
+│ ├── 📁 sounds
+│ │ ├── 📄 blop.mp3
+│ │ ├── 📄 blop.ogg
+│ ├── 🎨 styles.css
 ├── 📁 app-drawer
 │ ├── 📄 index.html
 ├── 📁 apps
@@ -46,7 +72,11 @@
 │ │ ├── 🟨 script.js
 │ │ ├── 🗂️ sortiment.json
 ├── 📁 cf-worker
+│ ├── 📁 airdump-api
+│ │ ├── 🟨 worker.js
+│ │ ├── 📄 wrangler.toml
 │ ├── 🟨 index.js
+│ ├── 📄 index.js.bkp1
 │ ├── 📄 wrangler.toml
 ├── 📄 favicon.ico
 ├── 📜 folder-structure.md
