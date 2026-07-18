@@ -44,7 +44,7 @@ export class Room {
         const name = this.generateName(ua);
 
         // Include avatar (empty by default)
-        const peerInfo = { id: peerId, name, rtcSupported, avatar: '' };
+        const peerInfo = { id: peerId, name, rtcSupported }; 
 
         this.peers.set(peerId, {
             ws,
