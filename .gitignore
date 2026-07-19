@@ -1,31 +1,46 @@
-# OS related
+# OS-specific files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# IDEs
-.vscode/
-.idea/
-#.dev/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# Environment variables & secrets (Crucial for security)
+.dev.vars
+.env
+.env.*
+!.env.example
 
+# Dependencies
 # Node.js/Python
 node_modules/
+npm-debug.log*
 __pycache__/
 *.log
 .env
 
-# Local databases (Do not commit backups/live data.)
-*.db
-*.sqlite
+# IDE/Editor settings
+.vscode/
+.idea/
+.dev/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.code-workspace
 
+# Local build, test, and debug artifacts
 # Cloudflare Wrangler local development cache
 .wrangler/
 .dev.vars
+.output/
+dist/
+build/
+*.log
+*.tmp
+*.bak
 
-# Node dependencies
-node_modules/
-npm-debug.log*
+# Project specific
+# (Optional) Ignore the local database file if using SQLite
+.sqlite
+*.db
