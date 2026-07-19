@@ -1,4 +1,4 @@
-const targetFile = 'apps/';
+const targetFile = 'reapps/';
 const fallbackFile = 'README.md';
 let retryCount = 0;
 const MAX_RETRIES = 3;
@@ -33,7 +33,7 @@ function checkApp() {
             setTimeout(() => {
                 const currentPath = window.location.pathname;
                 const basePath = currentPath.endsWith('/') ? currentPath : currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-                window.location.replace(basePath + 'apps/');
+                window.location.replace(basePath + 'reapps/');
             }, 500);
         } else {
             throw new Error(`HTTP ${response.status}`);

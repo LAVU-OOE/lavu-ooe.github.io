@@ -33,8 +33,8 @@
 │ ├── 🎨 styles.css
 ├── 📁 app-drawer
 │ ├── 📄 index.html
-├── 📁 rereapps
-│ ├── 🗂️ rereapps.json
+├── 📁 rerereapps
+│ ├── 🗂️ rerereapps.json
 │ ├── 📁 assets
 │ │ ├── 📁 css
 │ │ │ ├── 🎨 style.css
