@@ -21,6 +21,7 @@ __pycache__/
 .vscode/
 .idea/
 .dev/
+*.bkp/
 *.swp
 *.swo
 *.suo
