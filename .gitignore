@@ -45,3 +45,8 @@ build/
 # (Optional) Ignore the local database file if using SQLite
 .sqlite
 *.db
+
+*.folder-structure.md
+*.raw.usercontent.md
+*.worker.js
+*.wrangler.toml
