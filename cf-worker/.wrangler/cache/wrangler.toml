@@ -1,7 +1,0 @@
-name = "apps-api"
-main = "index.js"
-compatibility_date = "2026-07-17"
-
-[[kv_namespaces]]
-binding = "APPS_KV"
-id = "ee91aee19ba0422d85f8cd5c67e95970"
