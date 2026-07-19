@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-title" content="MyLAVU" />
+    <meta name="theme-color" content="#1a4b60" />
 
+    <!-- Favicons -->
     <link rel="icon" href="images/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="images/favicon-96x96.png?v=071177" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="images/icon.svg" />
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=071177" />
     <link rel="shortcut icon" href="images/favicon.ico?v=071177" />
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=071177" />
-    <link rel="manifest" href="site.webmanifest?v=071177" />
+
+    <!-- Manifest – now points to manifest.json (which exists) -->
+    <link rel="manifest" href="manifest.json?v=071177" />
+
     <link rel="stylesheet" href="styles.css">
     <title>LAVU-OÖ - Wird geladen...</title>
 </head>
@@ -38,7 +42,7 @@
                 <ul style="margin: 10px 0 0 20px;">
                     <li>Die Anwendung wurde noch nicht installiert</li>
                     <li>Die Server-Kommunikation ist unterbrochen</li>
-                    <li>Die Datei <code>app/index.html</code> ist nicht vorhanden</li>
+                    <li>Die Datei <code>reapps/index.html</code> ist nicht vorhanden</li>
                 </ul>
             </div>
             <p>Nachfolgend finden Sie die System-Dokumentation als Fallback:</p>
@@ -50,6 +54,14 @@
             </div>
         </div>
     </div>
+
+    <!-- Optional: Install button (hidden by default) -->
+    <!--
+    <div id="install-container" style="display:none; text-align:center; margin-top:20px;">
+        <button class="btn" id="installBtn">📲 App installieren</button>
+    </div>
+    -->
+
     <script src="script.js"></script>
 </body>
 </html>
